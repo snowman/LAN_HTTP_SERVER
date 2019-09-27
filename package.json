@@ -1,11 +1,14 @@
 {
-  "dependencies": {
-    "express": "^4.17.1",
-    "express-fileupload": "^1.1.6-alpha.5"
-  },
-  "name": "02:54:29",
+  "name": "LAN_HTTP_Server",
   "version": "1.0.0",
   "main": "index.js",
   "author": "unmem <unmem@outlook.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "chalk": "^2.4.2",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.1.6-alpha.5",
+    "moment": "^2.24.0"
+  }
 }

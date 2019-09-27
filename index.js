@@ -1,7 +1,11 @@
 const express = require('express')
 const fileUpload = require('express-fileupload')
+const bodyParser = require('body-parser')
+const fs = require('fs')
+const chalk = require('chalk')
+const moment = require('moment')
 const app = express()
-const port = 80
+const PORT = 80
 
 const page = `
 <!DOCTYPE html>
@@ -11,22 +15,55 @@ const page = `
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
+    <style>
+      h1 {
+        margin: 0;
+      }
+
+      .container {
+        margin-bottom: 1em;
+      }
+    </style>
   </head>
   <body>
-    <form
-      ref="uploadForm"
-      id="uploadForm"
-      action="/upload"
-      method="post"
-      encType="multipart/form-data"
-    >
-      <input type="file" name="UPLOADING_FILE" />
-      <input type="submit" value="Upload!" />
-    </form>
+    <div class="container" id="upload">
+      <h1>Upload</h1>
+      <form
+        ref="uploadForm"
+        id="uploadForm"
+        action="/upload"
+        method="post"
+        encType="multipart/form-data"
+      >
+        <input type="file" name="UPLOADING_FILE" />
+        <input type="submit" value="Upload!" />
+      </form>
+    </div>
+    <div class="container" id="pastebin">
+      <h1>Pastebin</h1>
+
+      <form id="pasteForm" action="/pastebin" method="post">
+        <textarea
+          name="PASTE"
+          cols="50"
+          rows="10"
+          placeholder="Paste your content here"
+        ></textarea>
+        <br />
+        <input type="submit" value="Upload!" />
+      </form>
+    </div>
   </body>
 </html>
 `
+
+const log = console.log
+const withColor = color => text => chalk[color](text)
+const withNowTime = text =>
+  chalk['cyan'](moment().format('YYYY/MM/DD h:mm:ss A ')) + text
+
 app.use(fileUpload())
+app.use(bodyParser.urlencoded({ extended: false }))
 
 // respond with "hello world" when a GET request is made to the homepage
 app.get('/', function(req, res) {
@@ -34,7 +71,7 @@ app.get('/', function(req, res) {
 })
 
 app.post('/upload', function(req, res) {
-  console.log(req.files) // the uploaded file object
+  log(withNowTime(withColor('yellow')(req.files))) // the uploaded file object
 
   if (!req.files || Object.keys(req.files).length === 0) {
     return res.status(400).send('No files were uploaded.')
@@ -51,4 +88,16 @@ app.post('/upload', function(req, res) {
   })
 })
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+app.post('/pastebin', function(req, res) {
+  log(withNowTime(withColor('redBright')(`Requesting pastebin service`)))
+
+  const pastebin = req.body.PASTE
+
+  fs.writeFileSync('./PASTE_BIN', pastebin)
+
+  res.send(`Your post: <br /><br />${pastebin}`)
+})
+
+app.listen(PORT, () =>
+  log(`Example app listening on port ${withColor('red')(PORT)}`)
+)
