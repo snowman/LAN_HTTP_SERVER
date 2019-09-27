@@ -95,7 +95,7 @@ app.post('/pastebin', function(req, res) {
 
   fs.writeFileSync('./PASTE_BIN', pastebin)
 
-  res.send(`Your post: <br /><br />${pastebin}`)
+  res.send(`Your post: <br /><br /><pre>${pastebin}</pre>`)
 })
 
 app.listen(PORT, () =>
