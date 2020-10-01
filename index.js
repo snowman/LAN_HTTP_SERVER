@@ -5,69 +5,27 @@ const fs = require('fs')
 const chalk = require('chalk')
 const moment = require('moment')
 const app = express()
-const PORT = 80
-
-const page = `
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
-    <style>
-      h1 {
-        margin: 0;
-      }
-
-      .container {
-        margin-bottom: 1em;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container" id="upload">
-      <h1>Upload</h1>
-      <form
-        ref="uploadForm"
-        id="uploadForm"
-        action="/upload"
-        method="post"
-        encType="multipart/form-data"
-      >
-        <input type="file" name="UPLOADING_FILE" />
-        <input type="submit" value="Upload!" />
-      </form>
-    </div>
-    <div class="container" id="pastebin">
-      <h1>Pastebin</h1>
-
-      <form id="pasteForm" action="/pastebin" method="post">
-        <textarea
-          name="PASTE"
-          cols="50"
-          rows="10"
-          placeholder="Paste your content here"
-        ></textarea>
-        <br />
-        <input type="submit" value="Upload!" />
-      </form>
-    </div>
-  </body>
-</html>
-`
+const { get_lan_ip } = require('./Get_LAN_IP')
+const { renderPage } = require('./page')
+const PORT = 8888
 
 const log = console.log
 const withColor = color => text => chalk[color](text)
 const withNowTime = text =>
   chalk['cyan'](moment().format('YYYY/MM/DD h:mm:ss A ')) + text
 
+// middleware
 app.use(fileUpload())
 app.use(bodyParser.urlencoded({ extended: false }))
 
 // respond with "hello world" when a GET request is made to the homepage
 app.get('/', function(req, res) {
-  res.send(page)
+  res.send(renderPage({}))
+})
+
+// respond with "hello world" when a GET request is made to the homepage
+app.get('/UPLOADED_FILE', function(req, res) {
+  res.sendFile(__dirname + '/UPLOADED_FILE')
 })
 
 app.post('/upload', function(req, res) {
@@ -98,6 +56,10 @@ app.post('/pastebin', function(req, res) {
   res.send(`Your post: <br /><br /><pre>${pastebin}</pre>`)
 })
 
-app.listen(PORT, () =>
-  log(`Example app listening on port ${withColor('red')(PORT)}`)
-)
+app.listen(PORT, () => {
+  log(
+    `Example app listening on port ${withColor('yellow')(
+      get_lan_ip()
+    )}:${withColor('red')(PORT)}`
+  )
+})
