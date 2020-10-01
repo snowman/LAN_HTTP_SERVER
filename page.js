@@ -48,6 +48,6 @@ const page = props => `
     </div>
   </body>
 </html>
-`
+`;
 
-module.exports = { renderPage: page }
+module.exports = { renderPage: page };
