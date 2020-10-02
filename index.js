@@ -53,7 +53,11 @@ app.post("/pastebin", function(req, res) {
 
   fs.writeFileSync("./PASTE_BIN", pastebin);
 
-  res.send(`Your post: <br /><br /><pre>${pastebin}</pre>`);
+  res.send(`
+<a href="${get_lan_ip()}:${PORT}">Back to home</a>
+<br />
+<br />
+Your post: <br /><br /><pre>${pastebin}</pre>`);
 });
 
 app.listen(PORT, () => {
