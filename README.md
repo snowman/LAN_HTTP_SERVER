@@ -8,8 +8,8 @@ node index.js
 
 ```bash
 # GET LAN IP
-arp -a | grep 192 | grep permanent
-ifconfig | grep "inet" | grep -v "127.0.0.1"
+arp -a   | grep 192       | grep permanent
+ifconfig | grep "inet"    | grep -v "127.0.0.1"
 ifconfig | grep "netmask" | grep -v "127.0.0.1"
 
 # In my situation, the LAN IP is 192.168.1.189

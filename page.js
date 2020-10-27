@@ -20,7 +20,7 @@ const page = props => `
     <label for="uploaded_file">UPLOADED FILE:</label>
     <a href="./UPLOADED_FILE">UPLOADED_FILE</a>
     <div class="container" id="upload">
-      <h1>Upload</h1>
+      <h1 style="margin-bottom: 0.1em;">Upload</h1>
       <form
         ref="uploadForm"
         id="uploadForm"
@@ -48,6 +48,6 @@ const page = props => `
     </div>
   </body>
 </html>
-`;
+`
 
-module.exports = { renderPage: page };
+module.exports = { renderPage: page }
