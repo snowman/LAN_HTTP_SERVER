@@ -4,7 +4,7 @@ get_lan_ip = function() {
   var interfaces = os.networkInterfaces();
 
   const interface = Object.keys(interfaces).find(interface =>
-    interface.match(/以太网|Ethernet|eno1/)
+    interface.match(/以太网|Ethernet|eno1|WLAN/)
   );
 
   const adapter = interfaces[interface];

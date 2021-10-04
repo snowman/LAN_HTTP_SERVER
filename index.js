@@ -7,7 +7,7 @@ const moment = require("moment");
 const app = express();
 const { get_lan_ip } = require("./Get_LAN_IP");
 const { renderPage } = require("./page");
-const PORT = 8888;
+const PORT = 9200;
 
 const log = console.log;
 const withColor = color => text => chalk[color](text);
