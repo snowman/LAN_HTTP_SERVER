@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require("express");
 const fileUpload = require("express-fileupload");
 const bodyParser = require("body-parser");
@@ -22,6 +23,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.get("/", function(req, res) {
   res.send(renderPage({}));
 });
+
+const dir_public = path.join(__dirname, 'public');
+app.use(express.static(dir_public));
 
 // respond with "hello world" when a GET request is made to the homepage
 app.get("/UPLOADED_FILE", function(req, res) {
