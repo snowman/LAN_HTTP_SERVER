@@ -17,7 +17,7 @@ const withNowTime = text =>
 
 // middleware
 app.use(fileUpload());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: false, limit: '10mb' }));
 
 // respond with "hello world" when a GET request is made to the homepage
 app.get("/", function(req, res) {
