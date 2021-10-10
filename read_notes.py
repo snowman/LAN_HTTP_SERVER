@@ -9,5 +9,8 @@ with open("PASTE_BIN", "r", encoding='utf-8') as f:
     notes = list(filter(lambda x: len(x), notes))
     print("Exporting {} notes".format(len(notes)))
     for idx, note in enumerate(notes):
-        print("." + ("  " if ((idx+1) % 25 == 0 and (idx+1) % 50 != 0) else "") + (str(idx+1).rjust(4, ' ') + "\n" if idx !=0 and (idx+1) % 50 == 0 else ""), end='')
-        print(note.strip(), file=open("notes\\" + str(idx+1).rjust(3, '0'), "w", encoding='utf-8'))
+        space = ("  " if ((idx+1) % 25 == 0 and (idx+1) % 50 != 0) else "")
+        number_newline = (str(idx+1).rjust(4, ' ') + "\n" if idx !=0 and (idx+1) % 50 == 0 else "")
+        print("." + space + number_newline, end='')
+        filename = "notes\\" + str(idx+1).rjust(3, '0')
+        print(note.strip(), file=open(filename, "w", encoding='utf-8'))
