@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+# See below for export all notes at once
+#   https://www.reddit.com/r/shortcuts/comments/cty1dk/retrieve_all_your_apple_notes/
+# 1. Try to change chunk variable to some value, so notes count are the same in "Function Collect All Notes"
+# 2. Change Text <repeat with each item in "notizen">
+#     to @@ Last Modified Date @@\nRepeated Item
+#     in "List all Notes Date Title"
+
 # Usage:
 #
 # Export notes by using latest first in Shortcut app
