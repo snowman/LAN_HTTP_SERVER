@@ -6,9 +6,7 @@ import os
 
 dest = "notes"
 if os.path.exists(dest) and os.path.isdir(dest):
-    if not os.listdir(dest):
-        print("Directory is empty")
-    else:
+    if os.listdir(dest):
         print("Directory is not empty")
         import sys
         sys.exit(1)
